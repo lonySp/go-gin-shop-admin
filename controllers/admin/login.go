@@ -21,9 +21,11 @@ func (con LoginController) DoLogin(c *gin.Context) {
 	verifyValue := c.PostForm("verifyValue")
 
 	if models.VerifyCaptcha(captchaId, verifyValue) {
-		c.String(http.StatusOK, "验证码验证成功")
+		// c.String(http.StatusOK, "验证码验证成功")
+		con.success(c, "验证成功", "/admin")
 	} else {
-		c.String(http.StatusOK, "验证码验证失败")
+		// c.String(http.StatusOK, "验证码验证失败")
+		con.error(c, "验证失败", "/admin/login")
 	}
 }
 func (con LoginController) Captcha(c *gin.Context) {

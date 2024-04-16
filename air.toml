@@ -1,5 +1,29 @@
 # air.toml
-root = "."  # 项目根目录
-exclude_dir = ["assets", "templates"]  # 排除的目录
-build_cmd = "go build -o ./tmp/main ."
-run_cmd = "./tmp/main"
+root = "."
+tmp_dir = "tmp"  # 临时文件夹位置，用于存放构建时生成的文件
+
+[build]
+cmd = "go build -o ./main ."  # 指定构建命令和输出目录
+bin = "./main"  # 指定可执行文件的位置
+include_ext = ["go", "tmpl", "html"]  # 监听文件的扩展名，包括 Go 源码文件和模板文件
+exclude_dir = ["tmp", "static", "templates", "assets", "node_modules"]  # 排除不需要监听的目录
+follow_symlink = false  # 是否跟踪符号链接所指向的真实路径
+
+[log]
+time = true  # 在日志中显示时间
+
+[color]
+main = "magenta"  # 主要日志颜色
+watcher = "cyan"  # 监听器日志颜色
+build = "yellow"  # 构建过程日志颜色
+runner = "green"  # 运行器日志颜色
+
+[misc]
+clean_on_exit = true  # 退出时清理生成的临时文件
+
+[watch_dir]
+# 指定需要监视的目录
+- "controllers"
+- "middlewares"
+- "models"
+- "routers"
