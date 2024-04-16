@@ -18,11 +18,6 @@ func AdminRoutersInit(r *gin.Engine) {
 		adminRouters.GET("/loginOut", admin.LoginController{}.LoginOut)
 		adminRouters.GET("/captcha", admin.LoginController{}.Captcha)
 
-		adminRouters.GET("/manager", admin.ManagerController{}.Index)
-		adminRouters.GET("/manager/add", admin.ManagerController{}.Add)
-		adminRouters.GET("/manager/edit", admin.ManagerController{}.Edit)
-		adminRouters.GET("/manager/delete", admin.ManagerController{}.Delete)
-
 		adminRouters.GET("/focus", admin.FocusController{}.Index)
 		adminRouters.GET("/focus/add", admin.FocusController{}.Add)
 		adminRouters.GET("/focus/edit", admin.FocusController{}.Edit)
@@ -34,6 +29,13 @@ func AdminRoutersInit(r *gin.Engine) {
 		adminRouters.POST("/role/doEdit", admin.RoleController{}.DoEdit)
 		adminRouters.GET("/role/edit", admin.RoleController{}.Edit)
 		adminRouters.GET("/role/delete", admin.RoleController{}.Delete)
+
+		adminRouters.GET("/manager", admin.ManagerController{}.Index)
+		adminRouters.GET("/manager/add", admin.ManagerController{}.Add)
+		adminRouters.POST("/manager/doAdd", admin.ManagerController{}.DoAdd)
+		adminRouters.POST("/manager/doEdit", admin.ManagerController{}.DoEdit)
+		adminRouters.GET("/manager/edit", admin.ManagerController{}.Edit)
+		adminRouters.GET("/manager/delete", admin.ManagerController{}.Delete)
 
 	}
 }
