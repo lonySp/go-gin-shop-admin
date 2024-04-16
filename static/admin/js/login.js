@@ -1,12 +1,10 @@
-var app = {
+var loginApp = {
     init: function() {
         this.getCaptcha();
         this.captchaImgChange();
     },
     getCaptcha: function() {
         $.get("/admin/captcha?t=" + Math.random(), function(response) {
-            console.log(response);
-            console.log("特殊测撒打算阿斗撒的阿萨德")
             $("#captchaId").val(response.captchaId);
             $("#captchaImg").attr("src", response.captchaImg);
             $("#username").val("admin");
@@ -25,5 +23,5 @@ var app = {
 };
 
 $(function() {
-    app.init();
+    loginApp.init();
 });

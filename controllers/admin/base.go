@@ -7,7 +7,7 @@ import (
 
 type BaseController struct{}
 
-func (con BaseController) success(c *gin.Context, message string, redirectUrl string) {
+func (con BaseController) Success(c *gin.Context, message string, redirectUrl string) {
 	// c.String(200, "成功")
 	c.HTML(http.StatusOK, "admin/public/success.html", gin.H{
 		"message":     message,
@@ -15,7 +15,7 @@ func (con BaseController) success(c *gin.Context, message string, redirectUrl st
 	})
 }
 
-func (con BaseController) error(c *gin.Context, message string, redirectUrl string) {
+func (con BaseController) Error(c *gin.Context, message string, redirectUrl string) {
 	// c.String(200, "失败")
 	c.HTML(http.StatusOK, "admin/public/error.html", gin.H{
 		"message":     message,
