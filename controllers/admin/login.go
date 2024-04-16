@@ -32,7 +32,7 @@ func (con LoginController) DoLogin(c *gin.Context) {
 	if models.VerifyCaptcha(captchaId, verifyValue) {
 		// c.String(http.StatusOK, "验证码验证成功")
 		// 查询数据库，校验用户名和密码是否存在
-		userinfoList := []models.Manager{}
+		var userinfoList []models.Manager
 		password = models.Md5(password)
 
 		models.DB.Where("username = ? and password = ?", username, password).Find(&userinfoList)
