@@ -8,13 +8,14 @@ import (
 
 func AdminRoutersInit(r *gin.Engine) {
 	//middlewares.InitMiddleware中间件
-	adminRouters := r.Group("/admin", middlewares.InitMiddleware)
+	adminRouters := r.Group("/admin", middlewares.InitAdminAuthMiddleware)
 	{
 		adminRouters.GET("/", admin.MainController{}.Index)
 		adminRouters.GET("/welcome", admin.MainController{}.Welcome)
 
 		adminRouters.GET("/login", admin.LoginController{}.Index)
 		adminRouters.POST("/doLogin", admin.LoginController{}.DoLogin)
+		adminRouters.GET("/loginOut", admin.LoginController{}.LoginOut)
 		adminRouters.GET("/captcha", admin.LoginController{}.Captcha)
 
 		adminRouters.GET("/manager", admin.ManagerController{}.Index)

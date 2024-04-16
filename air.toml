@@ -6,7 +6,7 @@ tmp_dir = "tmp"  # 临时文件夹位置，用于存放构建时生成的文件
 cmd = "go build -o ./main ."  # 指定构建命令和输出目录
 bin = "./main"  # 指定可执行文件的位置
 include_ext = ["go", "tmpl", "html"]  # 监听文件的扩展名，包括 Go 源码文件和模板文件
-exclude_dir = ["tmp", "static", "templates", "assets", "node_modules"]  # 排除不需要监听的目录
+exclude_dir = ["tmp", "node_modules"]  # 排除不需要监听的目录
 follow_symlink = false  # 是否跟踪符号链接所指向的真实路径
 
 [log]
