@@ -60,7 +60,7 @@ body {
     width: 90px;
 	margin-right:3px;
 }
-#verify_img{
+#captchaImg{
 	cursor:pointer;
     position: relative;
     top:12px;

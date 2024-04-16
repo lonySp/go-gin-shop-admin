@@ -1,0 +1,5 @@
+# air.toml
+root = "."  # 项目根目录
+exclude_dir = ["assets", "templates"]  # 排除的目录
+build_cmd = "go build -o ./tmp/main ."
+run_cmd = "./tmp/main"
