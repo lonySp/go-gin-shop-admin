@@ -29,6 +29,8 @@ func AdminRoutersInit(r *gin.Engine) {
 		adminRouters.POST("/role/doEdit", admin.RoleController{}.DoEdit)
 		adminRouters.GET("/role/edit", admin.RoleController{}.Edit)
 		adminRouters.GET("/role/delete", admin.RoleController{}.Delete)
+		adminRouters.GET("/role/auth", admin.RoleController{}.Auth)
+		adminRouters.POST("/role/doAuth", admin.RoleController{}.DoAuth)
 
 		adminRouters.GET("/manager", admin.ManagerController{}.Index)
 		adminRouters.GET("/manager/add", admin.ManagerController{}.Add)

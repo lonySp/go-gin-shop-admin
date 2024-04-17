@@ -23,6 +23,7 @@
             <td>{{$value.Description}}</td>
             <td>{{$value.Status}}</td>
             <td class="text-center">
+                <a href="/admin/role/auth?id={{$value.Id}}">授权</a>
                 <a href="/admin/role/edit?id={{$value.Id}}">修改</a>
                 <a class="delete" href="/admin/role/delete?id={{$value.Id}}">删除</a>
             </td>
