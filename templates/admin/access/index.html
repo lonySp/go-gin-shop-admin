@@ -36,7 +36,7 @@
                     </td>
                     <td>{{$value.ActionName}}</td>        
                     <td>{{$value.Url}}</td>    
-                    <td>{{$value.Sort}}</td>    
+                    <td> <span class="chSpanNum" data-id="{{$value.Id}}" data-table="access" data-field="sort">{{$value.Sort}}</span></td>    
                     <td>{{$value.Description}}</td>    
                     <td class="text-center">
                         <a href="/admin/access/edit?id={{$value.Id}}">修改</a> 
@@ -60,7 +60,7 @@
                         </td>
                         <td>{{$v.ActionName}}</td>        
                         <td>{{$v.Url}}</td>    
-                        <td>{{$v.Sort}}</td>    
+                        <td><span class="chSpanNum" data-id="{{$v.Id}}" data-table="access" data-field="sort">{{$v.Sort}}</span></td>    
                         <td>{{$v.Description}}</td>    
                         <td class="text-center">
                             <a href="/admin/access/edit?id={{$v.Id}}">修改</a> 
