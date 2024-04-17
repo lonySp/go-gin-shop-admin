@@ -1,45 +1,99 @@
 package middlewares
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
-	"github.com/goccy/go-json"
 	"github.com/lonySp/go-gin-shop-admin/models"
+	"gopkg.in/ini.v1"
+	"os"
 	"strings"
 )
 
-// InitAdminAuthMiddleware
-// @Description 登录权限判断
-// @Author xYuan 2024-04-16 15:13:35
-// @Param c
+// 定义常量，用于在函数中引用，减少硬编码
+const (
+	AdminLoginURL   = "/admin/login"
+	AdminDoLoginURL = "/admin/doLogin"
+	AdminCaptchaURL = "/admin/captcha"
+)
+
+// InitAdminAuthMiddleware 初始化后台权限认证中间件
 func InitAdminAuthMiddleware(c *gin.Context) {
-	//进行权限判断 没有登录的用户不能进入后台管理中心
-	// 1、获取Url访问地址
-	// 2、获取Session里面保存的用户信息
-	// 3、判断Session中的用户信息是否存在，如果不存在，则跳转到登录页面 ,如果Session中的用户信息存在，则继续执行
-	// 4、如果Session不存在，判断当前访问的URl是否是login doLogin captcha，如果不是跳转到登录页面，如果是不行任何操作
-
-	// 1、获取Url访问地址
 	pathname := strings.Split(c.Request.URL.String(), "?")[0]
-	// 2、获取Session里面保存的用户信息
 	session := sessions.Default(c)
-	userinfo := session.Get("userinfo")
-
-	//类型断言 来判断 userinfo是不是一个string
-	userinfoStr, ok := userinfo.(string)
+	userinfo, ok := session.Get("userinfo").(string)
 	if ok {
-		var userinfoStruct []models.Manager
-		// json字符串转为结构体对象
-		err := json.Unmarshal([]byte(userinfoStr), &userinfoStruct)
-		// 转换成功或者没有数据并且不是登录页面 则重定向到登录页面
-		if err != nil || !(len(userinfoStruct) > 0 && userinfoStruct[0].Username != "") {
-			if pathname != "/admin/login" && pathname != "/admin/doLogin" && pathname != "/admin/captcha" {
-				c.Redirect(302, "/admin/login")
-			}
+		if !validateUserSession(userinfo) {
+			handleUnauthorizedAccess(pathname, c)
+			return
 		}
+		validateUserPermissions(userinfo, pathname, c)
 	} else {
-		if pathname != "/admin/login" && pathname != "/admin/doLogin" && pathname != "/admin/captcha" {
-			c.Redirect(302, "/admin/login")
+		handleUnauthorizedAccess(pathname, c)
+	}
+}
+
+// handleUnauthorizedAccess 处理未授权访问，如未登录用户
+func handleUnauthorizedAccess(pathname string, c *gin.Context) {
+	if pathname != AdminLoginURL && pathname != AdminDoLoginURL && pathname != AdminCaptchaURL {
+		c.Redirect(302, AdminLoginURL)
+	}
+}
+
+// validateUserSession 验证用户的会话信息是否合法
+func validateUserSession(userinfo string) bool {
+	var userinfoStruct []models.Manager
+	if err := json.Unmarshal([]byte(userinfo), &userinfoStruct); err != nil || len(userinfoStruct) == 0 || userinfoStruct[0].Username == "" {
+		return false
+	}
+	return true
+}
+
+// validateUserPermissions 验证用户的访问权限
+func validateUserPermissions(userinfo, pathname string, c *gin.Context) {
+	urlPath := strings.Replace(pathname, "/admin/", "", 1)
+	if !excludeAuthPath("/" + urlPath) {
+		checkPermissions(userinfo, urlPath, c)
+	}
+}
+
+// checkPermissions 检查用户是否有权限访问特定URL
+func checkPermissions(userinfo, urlPath string, c *gin.Context) {
+	var userinfoStruct []models.Manager
+	json.Unmarshal([]byte(userinfo), &userinfoStruct)
+	if userinfoStruct[0].IsSuper == 1 { // 超级管理员无视权限检查
+		return
+	}
+
+	var roleAccessList []models.RoleAccess
+	models.DB.Where("role_id = ?", userinfoStruct[0].RoleId).Find(&roleAccessList)
+	accessMap := make(map[int]struct{})
+	for _, access := range roleAccessList {
+		accessMap[access.AccessId] = struct{}{}
+	}
+
+	access := models.Access{}
+	models.DB.Where("url = ?", urlPath).Find(&access)
+	if _, exists := accessMap[access.Id]; !exists {
+		c.String(403, "没有权限")
+		c.Abort()
+	}
+}
+
+// excludeAuthPath 判断访问路径是否在配置文件中的排除权限检查列表
+func excludeAuthPath(urlPath string) bool {
+	config, err := ini.Load("./conf/app.ini")
+	if err != nil {
+		fmt.Printf("Fail to read file: %v", err)
+		os.Exit(1)
+	}
+	excludePaths := config.Section("").Key("excludeAuthPath").String()
+	excludePathSlice := strings.Split(excludePaths, ",")
+	for _, path := range excludePathSlice {
+		if path == urlPath {
+			return true
 		}
 	}
+	return false
 }
