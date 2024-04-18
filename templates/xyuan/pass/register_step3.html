@@ -1,0 +1,56 @@
+{{ define "xyuan/pass/register_step3.html" }}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+        <meta name="author" content="order by dede58.com"/>
+		<title>用户注册</title>
+		<link rel="stylesheet" href="/static/xyuan/css/pass.css" />
+		<script src="/static/xyuan/js/jquery-1.10.1.js"></script>
+		<script src="/static/xyuan/js/pass.js"></script>
+	</head>
+	<body class="register_page">
+		
+			<div class="regist">
+				<div class="regist_center">
+
+					<div class="logo">
+						<img src="/static/xyuan/image/logo_top.png" alt="nest小米">
+					</div>
+					<div class="regist_top">
+							<h2>注册小米账户</h2>
+					</div>
+					<div class="regist_main center">
+						<p>请输入您注册账户的密码</p>
+						<br>
+						<br>
+						<div class="error"></div>
+
+						<form action="/pass/doRegister" method="post" id="form">		
+														
+							<input type="hidden" name="sign" value="{{.sign}}" />
+							<input type="hidden" name="smsCode"  value="{{.smsCode}}"/>
+							<div>
+								<input class="form_input" type="password" id="password" name="password" placeholder="请输入密码"/>
+							
+							</div>
+
+							<div>
+								<input class="form_input" type="password" id="rpassword" name="rpassword" placeholder="请输入确认密码"/>
+							
+							</div>
+
+							<div class="regist_submit">
+									<input class="submit" type="submit" name="submit" value="完成注册" >
+
+							</div>
+						</form>
+					</div>
+					
+					
+				</div>
+			</div>
+		
+	</body>
+</html>
+{{end}}

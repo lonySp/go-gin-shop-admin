@@ -8,7 +8,7 @@ import (
 // 创建store
 // var store = base64Captcha.DefaultMemStore
 // 配置RedisStore  RedisStore实现base64Captcha.Store接口
-var store base64Captcha.Store = RedisStore{}
+var store = base64Captcha.DefaultMemStore
 
 // MackCaptcha
 // @Description 生成验证码
@@ -17,14 +17,14 @@ var store base64Captcha.Store = RedisStore{}
 // @Return string
 // @Return string
 // @Return error
-func MackCaptcha() (string, string, string, error) {
+func MackCaptcha(height int, width int, length int) (string, string, string, error) {
 	var driver base64Captcha.Driver
 	driverString := &base64Captcha.DriverString{
-		Height:          40,
-		Width:           100,
+		Height:          height,
+		Width:           width,
 		NoiseCount:      0,
 		ShowLineOptions: 2 | 4,
-		Length:          4,
+		Length:          length,
 		Source:          "1234567890qwertyuiopasdfghjklzxcvbnm",
 		BgColor:         &color.RGBA{R: 3, G: 102, B: 214, A: 125},
 		Fonts:           []string{"wqy-microhei.ttc"},

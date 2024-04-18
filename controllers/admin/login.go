@@ -58,7 +58,7 @@ func (con LoginController) DoLogin(c *gin.Context) {
 // @Author xYuan 2024-04-16 15:29:03
 // @Param c
 func (con LoginController) Captcha(c *gin.Context) {
-	captcha, captchaImg, answer, err := models.MackCaptcha()
+	captcha, captchaImg, answer, err := models.MackCaptcha(34, 100, 2)
 	if err != nil {
 		fmt.Println(err)
 	}
