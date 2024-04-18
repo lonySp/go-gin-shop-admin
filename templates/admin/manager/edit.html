@@ -19,11 +19,11 @@
                     <li> 管理员角色:
                         <select name="role_id" id="role_id">
                             {{range $key,$value := .roleList}}
-                                {{if eq $value.Id $.manager.RoleId}}
-                                     <option value="{{$value.Id}}">{{$value.Title}}</option>
-                                {{else}}
-                                     <option value="{{$value.Id}}">{{$value.Title}}</option>
-                                 {{end}}
+                            {{if eq $value.Id $.manager.RoleId}}
+                            <option value="{{$value.Id}}">{{$value.Title}}</option>
+                            {{else}}
+                            <option value="{{$value.Id}}">{{$value.Title}}</option>
+                            {{end}}
                             {{end}}
                         </select>
 

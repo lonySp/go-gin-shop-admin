@@ -5,14 +5,16 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-       修改角色
+       编辑角色
     </div>
     <div class="panel-body">
         <div class="table-responsive input-form">
             <form action="/admin/role/doEdit" method="post">
                 <input type="hidden" name="id" value="{{.role.Id}}">
                 <ul>
-                    <li> 角色名称: <input type="text" name="title"  value="{{.role.Title}}"/></li>
+                    <li> 角色名称: <input type="text" name="title" value="{{.role.Title}}" /></li>
+
+
                     <li>
                         角色描述:
                         <textarea name="description" id="" cols="60" rows="8">{{.role.Description}}</textarea>

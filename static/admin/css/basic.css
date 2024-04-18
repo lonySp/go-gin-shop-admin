@@ -26,14 +26,10 @@ ul{
     border-top-right-radius: 0px;
 }
 
-.aside .list-group-item:last-child{
-	
+.aside .list-group-item:last-child{	
 	border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
 }
-
-
-
 .aside .list-group-item a{
 	
 	display: inline-block;
@@ -41,9 +37,6 @@ ul{
 	text-indent: 10px;
 	color: #555
 }
-
-
-
 .navbar-header{   
     text-align: center;
 }
@@ -80,4 +73,69 @@ input[type=file]{
 }
 .logo{
 	height:48px;
+}
+
+.fr{
+    float: right;
+}
+.clear::after{
+
+    clear: both;
+    content: '';
+
+    height: 0px;
+    display: block;
+
+
+}
+
+/*商品详情页面布局*/
+.tab-content{
+    position: relative;
+    top: -12px;
+    padding: 20px;
+    background: #fff;
+}
+.input-form li{
+    padding: 6px 0px;
+}
+
+.input-form li input[type="text"],.input-form li input[type="password"]{
+    width: 300px;
+}
+.nav-tabs{
+    background: #eee;
+    padding-left: 10px;
+}
+.goods-content{
+    border: 1px solid #eee;
+}
+
+.input-form li span{
+    display: inline-block;
+    min-width: 90px;
+    text-align: right;
+}
+/* 解决webuploader按钮失效的方法 */
+#photoUploader div:nth-child(2){width:100%!important;height:100%!important;}   
+
+#photoUploader{
+    margin: 20px auto;
+    width: 200px;
+
+}
+
+.goods_image_list {
+    border:1px solid #eee;
+
+}
+.goods_image_list li{
+    width:  120px;   
+    float: left;    
+    margin-right: 10px;
+    border-bottom: none;
+    position: relative;
+}
+.goods_image_list li img{
+    width:  120px;   
 }

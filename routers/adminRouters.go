@@ -50,5 +50,33 @@ func AdminRoutersInit(r *gin.Engine) {
 		adminRouters.GET("/access/edit", admin.AccessController{}.Edit)
 		adminRouters.GET("/access/delete", admin.AccessController{}.Delete)
 
+		adminRouters.GET("/goodsCate", admin.GoodsCateController{}.Index)
+		adminRouters.GET("/goodsCate/add", admin.GoodsCateController{}.Add)
+		adminRouters.POST("/goodsCate/doAdd", admin.GoodsCateController{}.DoAdd)
+		adminRouters.GET("/goodsCate/edit", admin.GoodsCateController{}.Edit)
+		adminRouters.POST("/goodsCate/doEdit", admin.GoodsCateController{}.DoEdit)
+		adminRouters.GET("/goodsCate/delete", admin.GoodsCateController{}.Delete)
+
+		adminRouters.GET("/goodsType", admin.GoodsTypeController{}.Index)
+		adminRouters.GET("/goodsType/add", admin.GoodsTypeController{}.Add)
+		adminRouters.POST("/goodsType/doAdd", admin.GoodsTypeController{}.DoAdd)
+		adminRouters.GET("/goodsType/edit", admin.GoodsTypeController{}.Edit)
+		adminRouters.POST("/goodsType/doEdit", admin.GoodsTypeController{}.DoEdit)
+		adminRouters.GET("/goodsType/delete", admin.GoodsTypeController{}.Delete)
+
+		adminRouters.GET("/goodsTypeAttribute", admin.GoodsTypeAttributeController{}.Index)
+		adminRouters.GET("/goodsTypeAttribute/add", admin.GoodsTypeAttributeController{}.Add)
+		adminRouters.POST("/goodsTypeAttribute/doAdd", admin.GoodsTypeAttributeController{}.DoAdd)
+		adminRouters.GET("/goodsTypeAttribute/edit", admin.GoodsTypeAttributeController{}.Edit)
+		adminRouters.POST("/goodsTypeAttribute/doEdit", admin.GoodsTypeAttributeController{}.DoEdit)
+		adminRouters.GET("/goodsTypeAttribute/delete", admin.GoodsTypeAttributeController{}.Delete)
+
+		adminRouters.GET("/goods", admin.GoodsController{}.Index)
+		adminRouters.GET("/goods/add", admin.GoodsController{}.Add)
+		adminRouters.POST("/goods/doAdd", admin.GoodsController{}.DoAdd)
+		adminRouters.GET("/goods/edit", admin.GoodsController{}.Edit)
+		adminRouters.GET("/goods/goodsTypeAttribute", admin.GoodsController{}.GoodsTypeAttribute)
+		adminRouters.POST("/goods/imageUpload", admin.GoodsController{}.ImageUpload)
+
 	}
 }
