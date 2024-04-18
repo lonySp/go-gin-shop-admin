@@ -16,26 +16,33 @@ type GoodsController struct {
 	BaseController
 }
 
+// Index
+// @Description 重定向到商品管理->商品列表
+// @Author xYuan 2024-04-18 11:42:13
+// @Param c
 func (con GoodsController) Index(c *gin.Context) {
-
-	goodsList := []models.Goods{}
+	var goodsList []models.Goods
 	models.DB.Find(&goodsList)
-
 	c.HTML(http.StatusOK, "admin/goods/index.html", gin.H{
 		"goodsList": goodsList,
 	})
 }
+
+// Add
+// @Description 重定向到商品管理->增加商品页面
+// @Author xYuan 2024-04-18 11:45:07
+// @Param c
 func (con GoodsController) Add(c *gin.Context) {
 	//获取商品分类
-	goodsCateList := []models.GoodsCate{}
+	var goodsCateList []models.GoodsCate
 	models.DB.Where("pid=0").Preload("GoodsCateItems").Find(&goodsCateList)
 
 	//获取所有颜色信息
-	goodsColorList := []models.GoodsColor{}
+	var goodsColorList []models.GoodsColor
 	models.DB.Find(&goodsColorList)
 
 	//获取商品规格包装
-	goodsTypeList := []models.GoodsType{}
+	var goodsTypeList []models.GoodsType
 	models.DB.Find(&goodsTypeList)
 
 	c.HTML(http.StatusOK, "admin/goods/add.html", gin.H{
@@ -47,7 +54,7 @@ func (con GoodsController) Add(c *gin.Context) {
 
 func (con GoodsController) GoodsTypeAttribute(c *gin.Context) {
 	cateId, err1 := models.Int(c.Query("cateId"))
-	goodsTypeAttributeList := []models.GoodsTypeAttribute{}
+	var goodsTypeAttributeList []models.GoodsTypeAttribute
 	err2 := models.DB.Where("cate_id = ?", cateId).Find(&goodsTypeAttributeList).Error
 	if err1 != nil || err2 != nil {
 		c.JSON(http.StatusOK, gin.H{
@@ -62,6 +69,10 @@ func (con GoodsController) GoodsTypeAttribute(c *gin.Context) {
 	}
 }
 
+// DoAdd
+// @Description 执行添加商品功能
+// @Author xYuan 2024-04-18 11:47:55
+// @Param c
 func (con GoodsController) DoAdd(c *gin.Context) {
 
 	//1、获取表单提交过来的数据 进行判断
