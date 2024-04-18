@@ -10,7 +10,10 @@ var loginApp={
         $.get("/admin/captcha?t="+Math.random(),function(response){
             console.log(response)
             $("#captchaId").val(response.captchaId)
-            $("#captchaImg").attr("src",response.captchaImage)
+            $("#captchaImg").attr("src",response.captchaImg)
+            $("#username").val("admin");
+            $("#password").val("123456");
+            $("#verify").val(response.answer);
         })
     },
     captchaImgChage:function(){
