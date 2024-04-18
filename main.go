@@ -14,8 +14,15 @@ func main() {
 	// 创建一个默认的路由引擎
 	r := gin.Default()
 	//自定义模板函数  注意要把这个函数放在加载模板前
+	//自定义模板函数  注意要把这个函数放在加载模板前
 	r.SetFuncMap(template.FuncMap{
 		"UnixToTime": models.UnixToTime,
+		"Str2Html":   models.Str2Html,
+		"FormatImg":  models.FormatImg,
+		"Sub":        models.Sub,
+		"Mul":        models.Mul,
+		"Substr":     models.Substr,
+		"FormatAttr": models.FormatAttr,
 	})
 	//加载模板 放在配置路由前面
 	r.LoadHTMLGlob("templates/**/**/*")
