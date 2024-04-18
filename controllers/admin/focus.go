@@ -37,7 +37,6 @@ func (con FocusController) Edit(c *gin.Context) {
 		con.Error(c, "参数错误", "/admin/focus")
 		return
 	}
-	fmt.Println("id:", id)
 	focus := models.Focus{Id: id}
 	if err := models.DB.Find(&focus).Error; err != nil {
 		con.Error(c, "数据不存在", "/admin/focus")

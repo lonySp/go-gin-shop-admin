@@ -1,7 +1,6 @@
 package admin
 
 import (
-	"fmt"
 	"github.com/lonySp/go-gin-shop-admin/models"
 	"math"
 	"net/http"
@@ -19,7 +18,6 @@ func (con NavController) Index(c *gin.Context) {
 	if page == 0 {
 		page = 1
 	}
-	fmt.Println(page)
 	//每页显示的数量
 	pageSize := 8
 	//获取数据
@@ -77,7 +75,6 @@ func (con NavController) Edit(c *gin.Context) {
 	} else {
 		nav := models.Nav{Id: id}
 		models.DB.Find(&nav)
-		fmt.Println(nav)
 		c.HTML(http.StatusOK, "admin/nav/edit.html", gin.H{
 			"nav":      nav,
 			"prevPage": c.Request.Referer(), //获取上一页的地址

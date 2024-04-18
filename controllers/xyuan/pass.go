@@ -30,7 +30,6 @@ func (con PassController) Captcha(c *gin.Context) {
 
 func (con PassController) Login(c *gin.Context) {
 	//生成随机数
-	// fmt.Println(models.GetRandomNum())
 	prevPage := c.Request.Referer()
 
 	c.HTML(http.StatusOK, "xyuan/pass/login.html", gin.H{
@@ -49,8 +48,6 @@ func (con PassController) RegisterStep2(c *gin.Context) {
 	session := sessions.Default(c)
 	sessionVerifyCode := session.Get("verifyCode")
 	sessionVerifyCodeStr, ok := sessionVerifyCode.(string)
-	fmt.Println("---------")
-	fmt.Println(verifyCode, sessionVerifyCodeStr)
 	if !ok || verifyCode != sessionVerifyCodeStr {
 		c.Redirect(302, "/pass/registerStep1")
 	}
