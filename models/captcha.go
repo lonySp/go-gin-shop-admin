@@ -29,9 +29,7 @@ func MackCaptcha(height int, width int, length int) (string, string, string, err
 		BgColor:         &color.RGBA{R: 3, G: 102, B: 214, A: 125},
 		Fonts:           []string{"wqy-microhei.ttc"},
 	}
-
 	driver = driverString.ConvertFonts()
-
 	c := base64Captcha.NewCaptcha(driver, store)
 	id, b64s, answer, err := c.Generate()
 	return id, b64s, answer, err
